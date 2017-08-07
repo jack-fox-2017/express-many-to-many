@@ -15,7 +15,7 @@
         <tr>
           <th>Id</th>
           <th>Name</th>
-          <!--<th>Members</th>-->
+          <th>Members</th>
         </tr>
       </thead>
       <tbody>
@@ -23,10 +23,9 @@
           <tr>
             <td><%= item.id %></td>
             <td><%= item.name_of_group %></td>
-            <!--<td></td>-->
+            <td><%= item.contacts_name %></td>
             <td><a href="/groups/edit/<%= item.id %>">Edit</a></td>
             <td><a href="/groups/delete/<%= item.id %>">Delete</a></td>
-            <td><a href="/groups/assign-contact/<%= item.id %>">Assign Contact</a></td>
           </tr>
         <% }) %>
       </tbody>

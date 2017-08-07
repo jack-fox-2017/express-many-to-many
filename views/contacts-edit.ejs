@@ -6,20 +6,19 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
   <body>
-    <% let item = data[0] %>
     <marquee direction="right">
-      <h1><a href="/">Edit Contact: <%= item.name %></a></h1>
+      <h1><a href="/">Edit Contact: <%= data.name %></a></h1>
     </marquee>
 
-    <form action="/contacts/edit/<%= item.id %>" method="post">
-      <input type="text" name="name" placeholder="Name" value="<%= item.name %>">
-      <input type="text" name="company" placeholder="Company" value="<%= item.company %>">
-      <input type="text" name="telp_number" placeholder="Phone Number" value="<%= item.telp_number %>">
-      <input type="text" name="email" placeholder="Email" value="<%= item.email %>">
+    <form action="/contacts/edit/<%= data.id %>" method="post">
+      <input type="text" name="name" placeholder="Name" value="<%= data.name %>">
+      <input type="text" name="company" placeholder="Company" value="<%= data.company %>">
+      <input type="text" name="telp_number" placeholder="Phone Number" value="<%= data.telp_number %>">
+      <input type="text" name="email" placeholder="Email" value="<%= data.email %>">
 
       <% groups.forEach(item => { %>
         <label>
-          <input type="checkbox" name="group_ids[]" value=<%= item.id %>>
+          <input type="checkbox" name="group_ids[]" value=<%= item.id %> <%= item.contact_id == data.id ? 'checked' : '' %> >
           <%= item.name_of_group %>
         </label>
       <% }) %>

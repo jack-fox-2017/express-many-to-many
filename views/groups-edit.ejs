@@ -6,14 +6,18 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
   <body>
-    <% let item = data[0] %>
     <marquee direction="right">
-      <h1><a href="/">Edit Group: <%= item.name_of_group %></a></h1>
+      <h1><a href="/">Edit Group: <%= data.name_of_group %></a></h1>
     </marquee>
 
-    <form action="/groups/edit/<%= item.id %>" method="post">
-      <input type="text" name="name_of_group" placeholder="Name" value="<%= item.name_of_group %>">
-
+    <form action="/groups/edit/<%= data.id %>" method="post">
+      <input type="text" name="name_of_group" placeholder="Name" value="<%= data.name_of_group %>">
+      <% contacts.forEach(item => { %>
+        <label>
+          <input type="checkbox" name="contact_ids[]" value=<%= item.id %> <%= item.group_id == data.id ? 'checked' : '' %>>
+          <%= item.name %>
+        </label>
+      <% }) %>
       <input type="submit" value="Submit">
     </form>
   </body>

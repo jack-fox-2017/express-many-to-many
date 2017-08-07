@@ -4,9 +4,9 @@ const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./db/data.db')
 
 router.get('/', (req, res) => {
-  let rows = []
   db.all(`SELECT * FROM contacts`, (errC, rowsC) => {
-
+    if (errC) throw errC
+    
     db.serialize(function(){
       rowsC.forEach(rowC => {
         db.all(`
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
           if (errGName) throw errGName
 
           rowC.groups_name = rowsGName.map(item => {return item.name_of_group}).join(', ')
-        })  
+        })
       })
 
       db.all(`SELECT * FROM groups`, (errG, rowsG) => {
@@ -29,9 +29,7 @@ router.get('/', (req, res) => {
           groups: rowsG
         })
       })
-      
     })
-
   })
 })
 
@@ -59,9 +57,25 @@ router.post('/', (req, res) => {
 })
 
 router.get('/edit/:id', (req, res) => {
-  db.all(`SELECT * FROM contacts WHERE id=${req.params.id}`, (err, rows) => {
-    if (err) throw err
-    res.render('contacts-edit', {data: rows})
+  db.get(`SELECT * FROM contacts WHERE id=${req.params.id}`, (errC, rowC) => {
+    if (errC) throw errC
+
+    db.all(`
+        SELECT
+        groups.*,
+        groups_contacts.contact_id
+        FROM groups
+          LEFT JOIN groups_contacts
+            ON groups_contacts.group_id = groups.id
+              AND groups_contacts.contact_id = ${req.params.id}
+      `, (errG, rowsG) => {
+      if (errG) throw errG
+
+      res.render('contacts-edit', {
+        data: rowC,
+        groups: rowsG
+      })
+    })
   })
 })
 
@@ -71,11 +85,23 @@ router.post('/edit/:id', (req, res) => {
     company = '${req.body.company}',
     telp_number = '${req.body.telp_number}',
     email = '${req.body.email}'
-  WHERE id = ${req.params.id}`)
+    WHERE id = ${req.params.id}
+  `, function() {
 
-  //
+    if (req.body.hasOwnProperty('group_ids') && req.body.group_ids.length > 0) {
+      db.run(`DELETE FROM groups_contacts WHERE contact_id = ${req.params.id}`, () => {
 
-  res.redirect('/contacts')
+        req.body.group_ids.forEach(item => {
+          db.run(`INSERT INTO groups_contacts (contact_id, group_id) VALUES (
+            ${req.params.id},
+            ${item}
+          )`)
+        })
+
+        res.redirect('/contacts')
+      })
+    }
+  })
 })
 
 router.get('/delete/:id', (req, res) => {
@@ -85,4 +111,3 @@ router.get('/delete/:id', (req, res) => {
 })
 
 module.exports = router
-
