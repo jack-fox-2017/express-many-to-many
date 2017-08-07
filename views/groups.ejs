@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Groups</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+  </head>
+  <body>
+    <marquee direction="right">
+      <h1><a href="/">Groups</a></h1>
+    </marquee>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <!--<th>Members</th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(item => { %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= item.name_of_group %></td>
+            <!--<td></td>-->
+            <td><a href="/groups/edit/<%= item.id %>">Edit</a></td>
+            <td><a href="/groups/delete/<%= item.id %>">Delete</a></td>
+            <td><a href="/groups/assign-contact/<%= item.id %>">Assign Contact</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <form action="/groups" method="post">
+      <input type="text" name="name_of_group" placeholder="Name of group">
+
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
