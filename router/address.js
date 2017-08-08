@@ -31,6 +31,7 @@ router.post('/', function (req, res) {
 router.get('/editA/:id', function (req, res) {
   add.getAddressE(db.connection, req.params.id, function (err, rowsP, rowsC) {
     if (!err) {
+      console.log(rowsP);
       res.render('editA', {
         dataAddresses: rowsP,
         dataContact: rowsC
