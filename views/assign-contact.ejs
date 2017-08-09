@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Assign Contact</title>
+  </head>
+  <body>
+    <h1>Assign Contact</h1>
+    <form action="/groups/assign_contact/<%= dataGroup.id %>" method="post">
+      <select class="" name="contacts_id">
+        <% dataContacts.forEach(contact=>{ %>
+        <option value="<%=contact.id%>"><%= contact.name %></option>
+        <% }) %>
+      </select><br>
+      <h3>to <%=dataGroup.group_name%></h3><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
