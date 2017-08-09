@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Groups with contact</title>
+  </head>
+  <body>
+    <h1>Groups with contact</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Group Name</th>
+          <th>Members</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% dataGroups.forEach(dG =>{ %>
+        <tr>
+          <td><%= dG.id %></td>
+          <td><%= dG.group_name %></td>
+          <td><%= dG.members %></td>
+          <td><a href="/groups/assign_contact/<%= dG.id %>">Assign</a></td>
+          <td><a href="/groups/edit/<%= dG.id %>">Edit</a></td>
+          <td><a href="/groups/delete/<%= dG.id %>">Delete</a></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <br><br><br>
+    <form action="/groups" method="post">
+      <input type="text" name="group_name" placeholder="Group Name"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
