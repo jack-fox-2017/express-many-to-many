@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="/profiles/editprofiles/<%=input[0].id%>" method="post">
+      User Name :<br>
+      <input type="text" name="username" value="<%=input[0].username%>">
+      <br>
+      Password :<br>
+      <input type="text" name="password"
+      value="<%=input[0].password%>">
+      <br>
+      First Name :<br>
+      <input type="text" name="first_name"
+      value="<%=input[0].first_name%>">
+      <br>
+      Last Name :<br>
+      <input type="text" name="last_name"
+      value="<%=input[0].last_name%>">
+      <br>
+    <button type="submit" name="Button">submit</button>
+    </form>
+  </body>
+</html>
