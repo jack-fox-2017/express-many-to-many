@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="/contacts/editcontacts/<%=input[0].id%>" method="post">
+      Telephone Number :<br>
+      <input type="text" name="telp_number" value="<%=input[0].telp_number%>">
+      <br>
+      Email :<br>
+      <input type="text" name="email"
+      value="<%=input[0].email%>">
+      <br>
+      Name :<br>
+      <input type="text" name="name"
+      value="<%=input[0].name%>">
+      <br>
+      Company :<br>
+      <input type="text" name="company"
+      value="<%=input[0].company%>">
+      <br>
+    <button type="submit" name="Button">submit</button>
+    </form>
+  </body>
+</html>

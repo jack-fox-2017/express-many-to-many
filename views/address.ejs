@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contacts</title>
+  </head>
+  <body>
+    <table style="width:100%">
+ <tr>
+   <th>ID</th>
+   <th>Postal Code</th>
+   <th>City</th>
+   <th>Street</th>
+ </tr>
+ <% address.forEach(data => { %>
+ <tr>
+   <td><%= data.id%></td>
+   <td><%= data.postal_code%></td>
+   <td><%= data.city%></td>
+   <td><%= data.street%></td>
+   <td><a href="/address/editaddress/<%=data.id%>">edit</a></td>
+   <td><a href="/address/delete/<%= data.id %>">delete</a></td>
+ </tr>
+ <% })%>
+</table>
+    <form action="/address" method="post">
+      Postal Code :<br>
+      <input type="text" name="postal_code" placeholder="Postal Code">
+      <br>
+      City :<br>
+      <input type="text" name="city" placeholder="City">
+      <br>
+      Street :<br>
+      <input type="text" name="street" placeholder="Street">
+      <br>
+      <button type="submit" name="">submit</button>
+    </form>
+  </body>
+</html>
